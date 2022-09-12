@@ -1,11 +1,36 @@
 import React, { useState } from "react";
 import Home from "./Home";
+const nodemailer = require("nodemailer");
 
 class App extends React.Component{
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password:'',
+      server:'',
+      port:''
+    };
+  }
 
+  onChange = e =>{
+    console.log(e.target.value);
+    this.setState({[e.target.name] : e.target.value})
+  }
+  
+  onSubmit = e =>{
+    e.preventDefault();
+    console.log("Email:" + this.state.email);
+    console.log("Password:" + this.state.password);
+    console.log("Server:" + this.state.server);
+    console.log("Port" + this.state.port);
+    //this.setState({email: "", port: "",password: "",server: ""})
+  }
 
   render(){
     return (
+      <form onSubmit={this.onSubmit}>
       <div className="container m-3">
         <div className="row ">
           <div className="col-4 container-fluid">
@@ -40,13 +65,13 @@ class App extends React.Component{
             <div className="row ">
               <div className="col-6">
                 <div className="form-floating mb-3 mx-3">
-                  <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                  <input type="text" className="form-control" id="floatingInput" placeholder="name@example.com" value={this.state.server} onChange={this.onChange} name="server"/>
                   <label htmlFor="floatingInput">Server</label>
                   </div>
               </div>
               <div className="col-6 ">
                 <div className="form-floating mb-3 mx-3">
-              <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+              <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={this.state.email} onChange={this.onChange} name="email"/>
               <label htmlFor="floatingInput">Email</label>
             </div>
               </div>
@@ -54,13 +79,13 @@ class App extends React.Component{
             <div className="row pt-2">
               <div className="col-6">
                   <div className="form-floating mb-3 mx-3">
-                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                    <input type="number" className="form-control" id="floatingInput" placeholder="name@example.com" value={this.state.port} onChange={this.onChange}name="port" />
                     <label htmlFor="floatingInput">Port</label>
                   </div>
               </div>
               <div className="col-6">
                 <div className="form-floating mb-3 mx-3">
-                  <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                  <input type="password" className="form-control" id="floatingInput" placeholder="name@example.com" value={this.state.password} onChange={this.onChange} name="password"/>
                   <label htmlFor="floatingInput">Password</label>
                 </div>
               </div>
@@ -76,7 +101,7 @@ class App extends React.Component{
             <div className="row ">
               <div className="col-6">
                 <div className="form-floating mb-3 mx-3">
-                  <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                  <input type="text" className="form-control" id="floatingInput" placeholder="name@example.com" />
                   <label htmlFor="floatingInput">From Name</label>
                   </div>
               </div>
@@ -96,7 +121,7 @@ class App extends React.Component{
               </div>
               <div className="col-6">
                 <div className="form-floating mb-3 mx-3">
-                  <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                  <input type="text" className="form-control" id="floatingInput" placeholder="name@example.com" />
                   <label htmlFor="floatingInput">Attachment</label>
                 </div>
               </div>
@@ -104,7 +129,7 @@ class App extends React.Component{
             <div className="row pt-2">
               <div className="col-12 w-100">
                   <div className="form-floating mb-3 mx-3">
-                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                    <input type="text" className="form-control" id="floatingInput" placeholder="name@example.com" />
                     <label htmlFor="floatingInput">Subject</label>
                   </div>
               </div>
@@ -123,13 +148,14 @@ class App extends React.Component{
               </div>
               <div className="col-4">
                   <div className="d-grid gap-2 row pt-2 mx-3">
-                    <button className="btn btn-primary" type="button">Submit</button>
+                    <button className="btn btn-primary" type="submit">Submit</button>
                   </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      </form>
     )
   }
 
